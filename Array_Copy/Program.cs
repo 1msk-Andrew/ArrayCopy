@@ -1,12 +1,23 @@
 ﻿using System;
+using System.Collections;
 
 namespace Array_Copy
 {
     class Program
     {
-        public void Copy(Array first, Array second, int offset)
+        public static object[] Copy(object[] first, object[] second, int offset)
         {
-
+            for(int i = 0; i < second.Length; i++)
+            {
+                if (i + offset < first.Length)
+                    first[i+offset] = second[i];
+                else
+                {
+                    Array.Resize(ref first, offset + second.Length);
+                    first[i + offset] = second[i];
+                }
+            }
+            return first;
         }
         static void Main(string[] args)
         {
@@ -19,8 +30,10 @@ namespace Array_Copy
             int index = Convert.ToInt32(Console.ReadLine());
 
             //Получение массивов из строк
-            Array first = first_str.Split(", ");
-            Array second = second_str.Split(", ");
+            string[] first = first_str.Split(", ");
+            string[] second = second_str.Split(", ");
+            //Измнение массива и конвертация в массив строк
+            first = Array.ConvertAll(Copy(first, second, index), (object o) => (string)o);
 
             //Вывод полученного массива
             Console.Write("Полученный массив --> ");
