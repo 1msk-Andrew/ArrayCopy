@@ -27,7 +27,13 @@ namespace Array_Copy
             Console.Write("Введите элементы второго массива через запятую --> ");
             string second_str = Console.ReadLine();
             Console.Write("Введите индекс, начиная с которого необходимо заменить элементы массива --> ");
-            int index = Convert.ToInt32(Console.ReadLine());
+            int index;
+            do 
+            {
+                index = Convert.ToInt32(Console.ReadLine());
+                if (index < 0)
+                    Console.Write("Введён индекс меньше нуля, повторите ввод --> ");
+            } while (index < 0);
 
             //Получение массивов из строк
             string[] first = first_str.Split(", ");
